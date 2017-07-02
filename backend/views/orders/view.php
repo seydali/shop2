@@ -1,0 +1,63 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+/* @var $this yii\web\View */
+/* @var $model common\models\Orders */
+
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="orders-view">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
+            'id_user',
+            'sum',
+            'count',
+            'status',
+            'params',
+            'created_at',
+            'updated_at',
+            'address',
+        ],
+    ]) ?>
+
+    <?
+
+
+    for ($i = 0; $i < sizeof($prodInfo->prodInfo); $i++) {
+//foreach( $prodInfo->product as $prod){var_dump($prod);
+        ?>
+        <p><strong>Товар №<?= $i + 1 ?></strong>
+            <strong>, кол-во:</strong> (<?= $prodInfo->prodInfo[$i]->count ?>)
+        </p>
+        <div class="orders-view">
+
+            <?= Html::a(Html::encode($prodInfo->product[$i]->name), ['products/view', 'id' => $prodInfo->product[$i]->id]) .
+            '<strong><p> ЦЕНА:' . $prodInfo->prodInfo[$i]->price . '</p></strong>' ?>
+        </div>
+
+        <?php
+    }
+
+    ?>
+
+</div>
